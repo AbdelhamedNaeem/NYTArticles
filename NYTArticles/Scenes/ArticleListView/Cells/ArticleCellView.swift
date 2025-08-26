@@ -1,3 +1,10 @@
+//
+//  ArticleCellView.swift
+//  NYTArticles
+//
+//  Created by Abdelhamid Naeem on 26/08/2025.
+//
+
 import SwiftUI
 
 struct ArticleCellView: View {
@@ -10,28 +17,10 @@ struct ArticleCellView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             // Circular image placeholder
-            ZStack {
-                Circle()
-                    .fill(Color(.systemGray4))
-                    .frame(width: 60, height: 60)
-                
-                if let imageURL = imageURL {
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        ProgressView()
-                            .scaleEffect(0.5)
-                    }
-                    .frame(width: 60, height: 60)
-                    .clipShape(Circle())
-                } else {
-                    Image(systemName: "photo")
-                        .font(.title3)
-                        .foregroundColor(.secondary)
-                }
-            }
+            AsyncImageView(
+                url: imageURL,
+                size: CGSize(width: 60, height: 60)
+            )
             
             // Article details
             VStack(alignment: .leading, spacing: 4) {
