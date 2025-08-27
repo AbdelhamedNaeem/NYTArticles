@@ -8,8 +8,6 @@
 import Foundation
 import Combine
 
-
-// MARK: - ARTICLE Network Service
 class ArticleNetwork:ArticleNetworkProtocol, HttpClient {
     func fetchArticles() -> AnyPublisher<ArticleModel, RequestError> {
         let apiKey = "5Cfn0bmhr8QISoa5qNN5pl91oe09wSgm"

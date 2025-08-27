@@ -32,11 +32,7 @@ struct ArticleCellView: View {
                     .multilineTextAlignment(.leading)
                     .padding(.bottom, 8)
                 
-                HStack(spacing: 4) {
-                    Text("By")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    
+                HStack(spacing: 4) {                    
                     Text(author)
                         .font(.caption)
                         .foregroundColor(.secondary)
@@ -48,6 +44,7 @@ struct ArticleCellView: View {
                     Text(desc)
                         .font(.caption)
                         .foregroundColor(.secondary)
+                        .lineLimit(1)
                     
                     Spacer()
                     

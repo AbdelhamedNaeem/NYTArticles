@@ -15,7 +15,7 @@ struct ArticleListView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 // Custom Navigation Bar
                 HeaderNavigationView()
@@ -59,7 +59,7 @@ struct ArticleListView: View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.articles) { article in
-                    VStack(spacing: 0) {
+                    NavigationLink(destination: ArticleDetailsView(article: article)) {
                         ArticleCellView(
                             title: article.title,
                             author: article.byline,
@@ -67,10 +67,8 @@ struct ArticleListView: View {
                             desc: article.abstract,
                             imageURL: URL(string: article.firstMediaMeta?.url ?? "")
                         )
-                        .onTapGesture {
-
-                        }
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }
@@ -84,14 +82,6 @@ struct ArticleListView: View {
 
 struct ArticleListView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleListView(
-            viewModel: ArticleListViewModel(
-                articleUseCases: ArticleUseCase(
-                    repo: ArticleRepoImplementation(
-                        network: ArticleNetwork()
-                    )
-                )
-            )
-        )
+        DependencyManager.createArticleListView()
     }
 }

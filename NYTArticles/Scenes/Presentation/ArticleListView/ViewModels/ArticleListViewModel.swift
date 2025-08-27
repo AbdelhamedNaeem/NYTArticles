@@ -15,11 +15,11 @@ class ArticleListViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     private var cancellables = Set<AnyCancellable>()
-    private let articleUseCases: ArticleUseCaseProtocol
+    private let articleUseCase: ArticleUseCaseProtocol
     
     // Dependency injection via initializer
     init(articleUseCases: ArticleUseCaseProtocol) {
-        self.articleUseCases = articleUseCases
+        self.articleUseCase = articleUseCases
         fetchArticles()
     }
     
@@ -27,7 +27,7 @@ class ArticleListViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        articleUseCases.fetchArticles()
+        articleUseCase.fetchArticles()
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { [weak self] completion in

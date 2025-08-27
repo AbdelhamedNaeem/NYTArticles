@@ -32,6 +32,8 @@
 		B57AFDC12E5E90D600044693 /* ArticleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDC02E5E90D600044693 /* ArticleUseCase.swift */; };
 		B57AFDC52E5E916300044693 /* ArticleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDC42E5E916300044693 /* ArticleEntity.swift */; };
 		B57AFDC72E5E9B1E00044693 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDC62E5E9B1E00044693 /* ErrorView.swift */; };
+		B57AFDC92E5E9B2E00044693 /* DependencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDC82E5E9B2E00044693 /* DependencyManager.swift */; };
+		B57AFDCD2E5F8C8D00044693 /* ArticleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDCC2E5F8C8D00044693 /* ArticleDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		B57AFDC02E5E90D600044693 /* ArticleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleUseCase.swift; sourceTree = "<group>"; };
 		B57AFDC42E5E916300044693 /* ArticleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleEntity.swift; sourceTree = "<group>"; };
 		B57AFDC62E5E9B1E00044693 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		B57AFDC82E5E9B2E00044693 /* DependencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyManager.swift; sourceTree = "<group>"; };
+		B57AFDCC2E5F8C8D00044693 /* ArticleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,7 @@
 		B57AFD152E5E740E00044693 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				B57AFDCB2E5F8C6B00044693 /* ArticleDetailsView */,
 				B57AFD1C2E5E740E00044693 /* ArticleListView */,
 			);
 			path = Presentation;
@@ -181,6 +186,7 @@
 		B57AFD202E5E740E00044693 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B57AFDC82E5F4BC400044693 /* DependencyManager */,
 				B57AFDBD2E5E89CA00044693 /* AppErrors */,
 				B57AFDA42E5E7D2800044693 /* Network */,
 				B57AFD9A2E5E794000044693 /* Resources */,
@@ -317,9 +323,9 @@
 		B57AFDA32E5E7AE700044693 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B57AFD192E5E740E00044693 /* Cells */,
-				B57AFD1A2E5E740E00044693 /* ArticleListView.swift */,
 				B57AFD1B2E5E740E00044693 /* HeaderNavigationView.swift */,
+				B57AFD1A2E5E740E00044693 /* ArticleListView.swift */,
+				B57AFD192E5E740E00044693 /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -341,6 +347,22 @@
 				B57AFDBE2E5E89DE00044693 /* RequestErrors.swift */,
 			);
 			path = AppErrors;
+			sourceTree = "<group>";
+		};
+		B57AFDC82E5F4BC400044693 /* DependencyManager */ = {
+			isa = PBXGroup;
+			children = (
+				B57AFDC82E5E9B2E00044693 /* DependencyManager.swift */,
+			);
+			path = DependencyManager;
+			sourceTree = "<group>";
+		};
+		B57AFDCB2E5F8C6B00044693 /* ArticleDetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				B57AFDCC2E5F8C8D00044693 /* ArticleDetailsView.swift */,
+			);
+			path = ArticleDetailsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -488,6 +510,7 @@
 				B57AFDC72E5E9B1E00044693 /* ErrorView.swift in Sources */,
 				B57AFD2D2E5E740E00044693 /* ContentView.swift in Sources */,
 				B57AFD2E2E5E740E00044693 /* AsyncImageView.swift in Sources */,
+				B57AFDCD2E5F8C8D00044693 /* ArticleDetailsView.swift in Sources */,
 				B57AFD302E5E740E00044693 /* ArticleCellView.swift in Sources */,
 				B57AFDB62E5E86E000044693 /* ArticleNetwork.swift in Sources */,
 				B57AFD312E5E740E00044693 /* NYTArticlesApp.swift in Sources */,
@@ -502,6 +525,7 @@
 				B57AFDBA2E5E873600044693 /* ArticleRepository+Contract.swift in Sources */,
 				B57AFDB82E5E871800044693 /* ArticleRepository.swift in Sources */,
 				B57AFDC52E5E916300044693 /* ArticleEntity.swift in Sources */,
+				B57AFDC92E5E9B2E00044693 /* DependencyManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

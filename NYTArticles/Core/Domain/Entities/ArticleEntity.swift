@@ -17,7 +17,7 @@ struct ArticleEntity: Identifiable {
     let url: String
     let section: String
     let subsection: String
-    let firstMediaMeta: MediaMetadata?   // <- the FIRST media-metadata entry (e.g., 75x75 thumb)
+    let firstMediaMeta: MediaMetadata?   
 
     init(from model: ArticleData) {
         self.id = model.id
@@ -29,7 +29,8 @@ struct ArticleEntity: Identifiable {
         self.section = model.section ?? ""
         self.subsection = model.subsection ?? ""
 
-        // first media → first media-metadata
-        self.firstMediaMeta = model.media?.first?.mediaMetadata?.first
+        self.firstMediaMeta = model.media?.first?.mediaMetadata?.first { metadata in
+            metadata.format == "mediumThreeByTwo440"
+        }
     }
 }
