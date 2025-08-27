@@ -34,6 +34,8 @@
 		B57AFDC72E5E9B1E00044693 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDC62E5E9B1E00044693 /* ErrorView.swift */; };
 		B57AFDC92E5E9B2E00044693 /* DependencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDC82E5E9B2E00044693 /* DependencyManager.swift */; };
 		B57AFDCD2E5F8C8D00044693 /* ArticleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDCC2E5F8C8D00044693 /* ArticleDetailsView.swift */; };
+		B57AFDD02E5F9B6E00044693 /* ArticleUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDCE2E5F9B6E00044693 /* ArticleUseCaseTests.swift */; };
+		B57AFDD12E5F9B6E00044693 /* MockArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AFDCF2E5F9B6E00044693 /* MockArticleRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		B57AFDC62E5E9B1E00044693 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B57AFDC82E5E9B2E00044693 /* DependencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyManager.swift; sourceTree = "<group>"; };
 		B57AFDCC2E5F8C8D00044693 /* ArticleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailsView.swift; sourceTree = "<group>"; };
+		B57AFDCE2E5F9B6E00044693 /* ArticleUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleUseCaseTests.swift; sourceTree = "<group>"; };
+		B57AFDCF2E5F9B6E00044693 /* MockArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockArticleRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				B57AFD3F2E5E76E600044693 /* NYTArticlesTests.swift */,
+				B57AFDCE2E5F9B6E00044693 /* ArticleUseCaseTests.swift */,
+				B57AFDCF2E5F9B6E00044693 /* MockArticleRepository.swift */,
 			);
 			path = NYTArticlesTests;
 			sourceTree = "<group>";
@@ -533,6 +539,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57AFDD02E5F9B6E00044693 /* ArticleUseCaseTests.swift in Sources */,
+				B57AFDD12E5F9B6E00044693 /* MockArticleRepository.swift in Sources */,
 				B57AFD412E5E76E600044693 /* NYTArticlesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

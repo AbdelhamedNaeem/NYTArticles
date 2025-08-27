@@ -43,8 +43,6 @@ extension HttpClient {
         let request = urlRequestBuilder(url: url, endPoint: endPoint)
 
         let decoder = JSONDecoder()
-        // Remove snake case conversion since we have explicit CodingKeys
-        // decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { output -> Data in
@@ -52,9 +50,7 @@ extension HttpClient {
                 guard let http = output.response as? HTTPURLResponse else {
                     throw RequestError.noResponse
                 }
-                
-
-                
+                                
                 // Map status codes
                 switch http.statusCode {
                 case 200..<300:
