@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct ArticleListView: View {
-    @StateObject private var viewModel = ArticleListViewModel()
+    @ObservedObject var viewModel: ArticleListViewModel
+    
+    init(viewModel: ArticleListViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         NavigationView {
@@ -20,6 +24,8 @@ struct ArticleListView: View {
                 // Content
                 if viewModel.isLoading {
                     loadingView
+                } else if let errorMessage = viewModel.errorMessage {
+                    errorView(message: errorMessage)
                 } else {
                     articlesList
                 }
@@ -39,6 +45,16 @@ struct ArticleListView: View {
         }
     }
     
+    private func errorView(message: String) -> some View {
+        VStack {
+            Spacer()
+            ErrorView(message: message) {
+                viewModel.refreshArticles()
+            }
+            Spacer()
+        }
+    }
+    
     private var articlesList: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
@@ -46,10 +62,10 @@ struct ArticleListView: View {
                     VStack(spacing: 0) {
                         ArticleCellView(
                             title: article.title,
-                            author: article.author,
-                            date: article.date,
-                            desc: article.description,
-                            imageURL: article.imageURL
+                            author: article.byline,
+                            date: article.publishedDate,
+                            desc: article.abstract,
+                            imageURL: URL(string: article.firstMediaMeta?.url ?? "")
                         )
                         .onTapGesture {
 
@@ -58,6 +74,9 @@ struct ArticleListView: View {
                 }
             }
         }
+        .refreshable {
+            viewModel.refreshArticles()
+        }
     }
     
 }
@@ -65,6 +84,14 @@ struct ArticleListView: View {
 
 struct ArticleListView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleListView()
+        ArticleListView(
+            viewModel: ArticleListViewModel(
+                articleUseCases: ArticleUseCase(
+                    repo: ArticleRepoImplementation(
+                        network: ArticleNetwork()
+                    )
+                )
+            )
+        )
     }
 }

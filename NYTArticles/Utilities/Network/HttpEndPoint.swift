@@ -12,7 +12,7 @@ protocol EndPoint{
     var method: RequestMethod { get }
     var body: [String: String]? { get }
     var header: [String: String]? { get }
-
+    var queryItems: [URLQueryItem]? { get }
 }
 
 extension EndPoint{
@@ -24,6 +24,10 @@ extension EndPoint{
     }
     
     var body: [String: String]?{
+        return nil
+    }
+    
+    var queryItems: [URLQueryItem]? {
         return nil
     }
 }

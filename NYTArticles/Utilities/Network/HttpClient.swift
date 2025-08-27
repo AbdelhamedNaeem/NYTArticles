@@ -8,52 +8,83 @@
 import Foundation
 import Combine
 
-
-protocol HttpClient{
-    func performRequest<T: Decodable>(endPoint: EndPoint) -> AnyPublisher<T, Error>
+protocol HttpClient {
+    func performRequest<T: Decodable>(endPoint: EndPoint) -> AnyPublisher<T, RequestError>
 }
 
-extension HttpClient{
-    
-    func urlComponentBuilder(endpoint: EndPoint) -> URLComponents{
-        let urlComponents = URLComponents(string: URLEndpoints.weather + endpoint.path) ?? .init()
-        print("url ==> \(urlComponents)")
-        return urlComponents
+extension HttpClient {
+
+    func urlComponentBuilder(endpoint: EndPoint) -> URLComponents {
+        var components = URLComponents(string: URLEndpoints.weather + endpoint.path) ?? .init()
+        
+        // Add query items if they exist
+        if let queryItems = endpoint.queryItems {
+            components.queryItems = queryItems
+        }
+        
+        print("url ==> \(components)")
+        print("queryItems ==> \(components.queryItems ?? [])")
+        return components
     }
-    
-    func urlRequestBuilder(url: URL,
-                           endPoint: EndPoint) -> URLRequest{
+
+    func urlRequestBuilder(url: URL, endPoint: EndPoint) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = endPoint.method.rawValue
         request.allHTTPHeaderFields = endPoint.header
         return request
     }
-    
-    func performRequest<T: Decodable>(endPoint: EndPoint) -> AnyPublisher<T, Error> {
+
+    func performRequest<T: Decodable>(endPoint: EndPoint) -> AnyPublisher<T, RequestError> {
         let components = urlComponentBuilder(endpoint: endPoint)
         guard let url = components.url else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+            return Fail(error: .invalidURL).eraseToAnyPublisher()
         }
 
         let request = urlRequestBuilder(url: url, endPoint: endPoint)
 
-        // Configure your decoder as needed
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        // Remove snake case conversion since we have explicit CodingKeys
+        // decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         return URLSession.shared.dataTaskPublisher(for: request)
-            // Validate HTTP status code
             .tryMap { output -> Data in
-                guard let http = output.response as? HTTPURLResponse,
-                      200..<300 ~= http.statusCode else {
-                    throw URLError(.badServerResponse)
+                // No HTTP response at all
+                guard let http = output.response as? HTTPURLResponse else {
+                    throw RequestError.noResponse
                 }
-                return output.data
+                
+
+                
+                // Map status codes
+                switch http.statusCode {
+                case 200..<300:
+                    return output.data
+                case 400:  throw RequestError.badRequest
+                case 401:  throw RequestError.unauthorized
+                default:   throw RequestError.unexpectedStatusCode
+                }
             }
-            // Decode to the requested type
             .decode(type: T.self, decoder: decoder)
-            // (Optional) retry transient failures once
-            //.retry(1)
+            // Map all errors into your RequestError
+            .mapError { error -> RequestError in
+                if let requestError = error as? RequestError {
+                    return requestError
+                } else if error is DecodingError {
+                    return .decode
+                } else if let urlErr = error as? URLError {
+                    switch urlErr.code {
+                    case .badURL:                 return .invalidURL
+                    case .timedOut,
+                         .cannotFindHost,
+                         .cannotConnectToHost,
+                         .networkConnectionLost,
+                         .notConnectedToInternet: return .noResponse
+                    default:                      return .unknown
+                    }
+                } else {
+                    return .unknown
+                }
+            }
             .eraseToAnyPublisher()
     }
 }

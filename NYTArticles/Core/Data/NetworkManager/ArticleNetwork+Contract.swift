@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol ArticleNetworkProtocol {
-    func fetchArticles() -> AnyPublisher<ArticleModel, Error>
+    func fetchArticles() -> AnyPublisher<ArticleModel, RequestError>
 }

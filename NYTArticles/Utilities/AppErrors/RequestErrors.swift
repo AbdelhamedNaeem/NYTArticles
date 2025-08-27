@@ -22,22 +22,36 @@ enum RequestError: Error, Identifiable {
 }
 
 extension RequestError: LocalizedError {
+    // Using userFriendlyMessage instead of errorDescription
     public var errorDescription: String? {
         switch self {
-        case .invalidURL:
-            return NSLocalizedString("Invalid URL", comment: "Request Error")
-        case .badRequest:
-            return NSLocalizedString("No matching location found.", comment: "Request Error")
-        case .noResponse:
-            return NSLocalizedString("No Response", comment: "Request Error")
-        case .unauthorized:
-            return NSLocalizedString("Unauthorized", comment: "Request Error")
-        case .unexpectedStatusCode:
-            return NSLocalizedString("Unexpected Status Code.", comment: "Request Error")
         case .decode:
-            return NSLocalizedString("Decoding Error", comment: "Request Error")
+            return "Failed to decode the response. Please try again."
+        case .invalidURL:
+            return "Invalid URL. Please check your configuration."
+        case .noResponse:
+            return "No response from server. Please check your connection."
+        case .unauthorized:
+            return "Unauthorized access. Please check your API key."
+        case .unexpectedStatusCode:
+            return "Server returned an unexpected response. Please try again."
+        case .badRequest:
+            return "Bad request. Please try again."
         case .unknown:
-            return NSLocalizedString("Unknown Error", comment: "Request Error")
+            return "An unknown error occurred. Please try again."
         }
     }
+
+    /// Logs the error for debugging purposes
+    func logError() {
+        print("Request Error: \(self.errorDescription ?? "")")
+    }
+    
+    /// Handles the error by logging it and returning the user-friendly message
+    /// - Returns: User-friendly error message
+    static func handle(_ error: RequestError) -> String {
+        error.logError()
+        return error.errorDescription ?? ""
+    }
 }
+

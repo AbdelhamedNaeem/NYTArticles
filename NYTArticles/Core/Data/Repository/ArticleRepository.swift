@@ -17,7 +17,7 @@ final class ArticleRepoImplementation: ArticleRepository {
         self.network = network
     }
     
-    func fetchArticles() -> AnyPublisher<ArticleModel, any Error> {
+    func fetchArticles() -> AnyPublisher<ArticleModel, RequestError> {
         return network.fetchArticles()
     }
 }

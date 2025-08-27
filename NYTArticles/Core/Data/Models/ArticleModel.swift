@@ -21,14 +21,17 @@ struct ArticleModel: Codable {
 
 // MARK: - ARTICLE
 struct ArticleData: Codable, Identifiable {
-    let id: Int?
+    let id: Int
     let publishedDate: String
     let byline: String?
     let title, abstract: String?
     let media: [Media]?
+    let url: String?
+    let section: String?
+    let subsection: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, byline, title, abstract, media
+        case id, byline, title, abstract, media, url, section, subsection
         case publishedDate = "published_date"
     }
 }
